@@ -10,15 +10,15 @@ public class PlayerDatabase {
     private int jatszottMeccsekSzama = 0;
     private int lepesekSzama = 0;
 
-    public int osszGyozelmek;
-    public int osszVereseg;
-    public int osszJatszottMeccsek;
-    public int osszLepesek;
+    private int osszGyozelmek;
+    private int osszVereseg;
+    private int osszJatszottMeccsek;
+    private int osszLepesek;
 
-    public void ujPlayerTxt() {
+    public void ujPlayerTxt(File path) {
         BufferedWriter ir = null;
         try {
-            ir = new BufferedWriter(new FileWriter(nev.toUpperCase(Locale.ROOT)+".txt"));
+            ir = new BufferedWriter(new FileWriter(path));
             ir.write(Integer.toString(0));
             ir.newLine();
             ir.write(Integer.toString(0));
@@ -32,9 +32,9 @@ public class PlayerDatabase {
     }
     }
 
-    public void osszStat() {
+    public void osszStat(File path) {
         try {
-            BufferedReader olvas = new BufferedReader(new FileReader(nev.toUpperCase(Locale.ROOT)+".txt"));
+            BufferedReader olvas = new BufferedReader(new FileReader(path));
             osszGyozelmek = Integer.parseInt(olvas.readLine());
             osszVereseg = Integer.parseInt(olvas.readLine());
             osszJatszottMeccsek = Integer.parseInt((olvas.readLine()));
@@ -45,10 +45,10 @@ public class PlayerDatabase {
         }
     }
 
-    public void statValtozas() {
+    public void statValtozas(File path) {
         try {
-            osszStat();
-            BufferedWriter ir = new BufferedWriter(new FileWriter(nev.toUpperCase(Locale.ROOT)+".txt"));
+            osszStat(path);
+            BufferedWriter ir = new BufferedWriter(new FileWriter(path));
             ir.write(Integer.toString(osszGyozelmek+gyozelmekSzama));
             ir.newLine();
             ir.write(Integer.toString(osszVereseg+veresegekSzama));
