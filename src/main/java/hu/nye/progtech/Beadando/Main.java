@@ -1,13 +1,17 @@
 package hu.nye.progtech.Beadando;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner scanner = new Scanner(System.in);
         PlayerDatabase player = new PlayerDatabase();
         Board board = new Board();
+
 
         System.out.println("FOX AND HOUNDS\n");
         System.out.print("Mehet a játék? (i/n) :: ");
@@ -27,10 +31,17 @@ public class Main {
                 System.out.println("Ismeretlen parancs -- i/n");
             }
         }
-
         System.out.print("Mi a neved? :: ");
         player.setNev(scanner.next());
         System.out.println("\nHali " + player.getNev() + ", akkor kezdjünk el játszani\n");
+        player.ujPlayerTxt();
+        player.osszStat();
+        System.out.println(player.getOsszGyozelmek());
+        System.out.println(player.getOsszVereseg());
+        System.out.println(player.getOsszJatszottMeccsek());
+        System.out.println(player.getOsszLepesek());
+        player.statValtozas();
+
         System.out.print("Milyen legyen a tábla mérete? (minimum 4x4 / maximum 12x12) :: ");
         while(true) {
             board.setNxN(scanner.nextInt());
