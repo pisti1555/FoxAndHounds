@@ -29,6 +29,7 @@ public class Main {
             System.out.println("Még nem létezik a profilod, létrehoztunk neked egy újat!");
             playerDataBase.ujPlayerTxt(player);
         }
-        menu.tablaMeret();
+        board.tablaLetrehoz();
+        board.tablaMegjelenit();
     }
 }
