@@ -11,7 +11,7 @@ public class Main {
         Menu menu = new Menu();
         PlayerDatabase playerDataBase = new PlayerDatabase();
         Board board = new Board();
-
+/*
         menu.start();
         System.out.print("Mi a neved? :: ");
         playerDataBase.setNev(scanner.next());
@@ -29,7 +29,12 @@ public class Main {
             System.out.println("Még nem létezik a profilod, létrehoztunk neked egy újat!");
             playerDataBase.ujPlayerTxt(player);
         }
+
+ */
         board.tablaLetrehoz();
-        board.tablaMegjelenit();
+        System.out.println(board.mezo);
+        board.tablaFrissit();
+        board.lep();
+        board.tablaFrissit();
     }
 }
