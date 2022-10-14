@@ -1,7 +1,6 @@
 package hu.nye.progtech.Beadando;
 
 import java.io.*;
-import java.util.Locale;
 
 public class PlayerDatabase {
     private String nev;

@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Menu {
     Scanner scanner = new Scanner(System.in);
-    PlayerDatabase player = new PlayerDatabase();
 
     public void start() {
         System.out.println("FOX AND HOUNDS\n");

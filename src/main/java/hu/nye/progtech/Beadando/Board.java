@@ -66,7 +66,13 @@ public class Board {
     public void tablaFrissit() {
         for (int i = 0; i < tabla.length; i++) {
             for (int j = 0; j < tabla.length; j++) {
-                System.out.print(tabla[i][j] + "  ");
+                if(tabla[i][j] == FOX) {
+                    System.out.print("F" + "  ");
+                }else if(tabla[i][j] == DOG) {
+                    System.out.print("D" + "  ");
+                }else {
+                    System.out.print("*" + "  ");
+                }
             }
             System.out.println("");
         }

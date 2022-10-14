@@ -1,17 +1,16 @@
 package hu.nye.progtech.Beadando;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         Menu menu = new Menu();
         PlayerDatabase playerDataBase = new PlayerDatabase();
         Board board = new Board();
-/*
+
         menu.start();
         System.out.print("Mi a neved? :: ");
         playerDataBase.setNev(scanner.next());
@@ -30,9 +29,8 @@ public class Main {
             playerDataBase.ujPlayerTxt(player);
         }
 
- */
+
         board.tablaLetrehoz();
-        System.out.println(board.mezo);
         board.tablaFrissit();
         board.lep();
         board.tablaFrissit();
