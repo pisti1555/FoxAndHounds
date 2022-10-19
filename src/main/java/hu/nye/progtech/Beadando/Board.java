@@ -3,20 +3,17 @@ package hu.nye.progtech.Beadando;
 import java.util.Scanner;
 
 public class Board {
-    private int NxN;
     public int mezo;
     private final int FOX = 1;
     private final int DOG = 2;
     private int[][] tabla;
     private int sor;
     private int oszlop;
-    private int elozoSor;
-    private int elozoOszlop;
-
+    Scanner scanner = new Scanner(System.in);
 
     public void tablaLetrehoz() {
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Milyen legyen a tábla mérete? (minimum 4x4 / maximum 12x12) :: ");
+        int NxN;
         while (true) {
             NxN = scanner.nextInt();
             if (NxN < 4) {
@@ -45,18 +42,14 @@ public class Board {
         if ((NxN / 2) % 2 == 0) {
             tabla[mezo][(mezo / 2) + 1] = FOX;
             sor = mezo;
-            oszlop = (mezo/2)+1;
-            elozoSor = sor;
-            elozoOszlop = oszlop;
+            oszlop = (mezo / 2) + 1;
             for (int i = 1; i < tabla.length; i += 2) {
                 tabla[0][i] = DOG;
             }
         } else {
             tabla[mezo][mezo / 2] = FOX;
             sor = mezo;
-            oszlop = mezo/2;
-            elozoSor = sor;
-            elozoOszlop = oszlop;
+            oszlop = mezo / 2;
             for (int i = 1; i < tabla.length; i += 2) {
                 tabla[0][i] = DOG;
             }
@@ -66,106 +59,106 @@ public class Board {
     public void tablaFrissit() {
         for (int i = 0; i < tabla.length; i++) {
             for (int j = 0; j < tabla.length; j++) {
-                if(tabla[i][j] == FOX) {
+                if (tabla[i][j] == FOX) {
                     System.out.print("F" + "  ");
-                }else if(tabla[i][j] == DOG) {
+                } else if (tabla[i][j] == DOG) {
                     System.out.print("D" + "  ");
-                }else {
+                } else {
                     System.out.print("*" + "  ");
                 }
             }
-            System.out.println("");
+            System.out.println();
         }
     }
 
     public void lep() {
-        Scanner scanner = new Scanner(System.in);
-        int lepes;
-        System.out.println("1 = Balra-Fel | 2 = Jobbra-Fel | 3 = Balra-Le | 4 = Jobbra-Le");
-        while (true) {
-            lepes = scanner.nextInt();
-            if (lepes > 4 || lepes < 1) {
-                System.out.println("Helytelen parancs");
-            } else break;
-        }
+        System.out.println("1 = Fel-Balra | 2 = Fel - Jobbra | 3 = Le-Balra | 4 = Le-Jobbra");
+        int lepes = scanner.nextInt();
 
-        while(sor == elozoSor && oszlop == elozoOszlop) {
-            if(lepes == 1) {
-                if (sor - 1 > mezo || oszlop - 1 > mezo) {
+        switch (lepes) {
+            case 1: {
+                if (sor - 1 > mezo || oszlop - 1 > mezo || sor - 1 < 0 || oszlop - 1 < 0) {
                     System.out.println("Helytelen lépés");
-                    while (true) {
-                        lepes = scanner.nextInt();
-                        if (lepes > 4 || lepes < 1) {
-                            System.out.println("Helytelen parancs");
-                        } else break;
-                    }
+                    lep();
                 } else {
-                    if (tabla[sor - 1][oszlop - 1] == 0) {
-                        tabla[sor - 1][oszlop - 1] = FOX;
+                    if(tabla[sor-1][oszlop-1] == 0) {
+                        tabla[sor-1][oszlop-1] = FOX;
                         tabla[sor][oszlop] = 0;
-                        sor -= 1;
-                        oszlop -= 1;
-                        break;
+                        sor = sor-1;
+                        oszlop = oszlop-1;
+                    }else {
+                        System.out.println("Helytelen lépés - Foglalt mező");
+                        lep();
                     }
                 }
-            } else if(lepes == 2) {
-                if (sor - 1 > mezo || oszlop + 1 > mezo) {
+            } break;
+
+            case 2: {
+                if (sor - 1 > mezo || oszlop + 1 > mezo || sor - 1 < 0 || oszlop + 1 < 0) {
                     System.out.println("Helytelen lépés");
-                    while (true) {
-                        lepes = scanner.nextInt();
-                        if (lepes > 4 || lepes < 1) {
-                            System.out.println("Helytelen parancs");
-                        } else break;
-                    }
+                    lep();
                 } else {
-                    if (tabla[sor - 1][oszlop + 1] == 0) {
-                        tabla[sor - 1][oszlop + 1] = FOX;
+                    if(tabla[sor-1][oszlop+1] == 0) {
+                        tabla[sor-1][oszlop+1] = FOX;
                         tabla[sor][oszlop] = 0;
-                        sor -= 1;
-                        oszlop += 1;
-                        break;
+                        sor = sor-1;
+                        oszlop = oszlop+1;
+                    }else {
+                        System.out.println("Helytelen lépés - Foglalt mező");
+                        lep();
                     }
                 }
-            } else if(lepes == 3) {
-                if (sor + 1 > mezo || oszlop - 1 > mezo) {
+            } break;
+
+            case 3: {
+                if (sor + 1 > mezo || oszlop - 1 > mezo || sor + 1 < 0 || oszlop - 1 < 0) {
                     System.out.println("Helytelen lépés");
-                    while (true) {
-                        lepes = scanner.nextInt();
-                        if (lepes > 4 || lepes < 1) {
-                            System.out.println("Helytelen parancs");
-                        } else break;
-                    }
+                    lep();
                 } else {
-                    if (tabla[sor + 1][oszlop - 1] == 0) {
-                        tabla[sor + 1][oszlop - 1] = FOX;
+                    if(tabla[sor+1][oszlop-1] == 0) {
+                        tabla[sor+1][oszlop-1] = FOX;
                         tabla[sor][oszlop] = 0;
-                        sor += 1;
-                        oszlop -= 1;
-                        break;
+                        sor = sor+1;
+                        oszlop = oszlop-1;
+                    }else {
+                        System.out.println("Helytelen lépés - Foglalt mező");
+                        lep();
                     }
                 }
-            } else if(lepes == 4) {
-                if (sor + 1 > mezo || oszlop + 1 > mezo) {
+            } break;
+
+            case 4: {
+                if (sor + 1 > mezo || oszlop + 1 > mezo || sor - 1 < 0 || oszlop + 1 < 0) {
                     System.out.println("Helytelen lépés");
-                    while (true) {
-                        lepes = scanner.nextInt();
-                        if (lepes > 4 || lepes < 1) {
-                            System.out.println("Helytelen parancs");
-                        } else break;
-                    }
+                    lep();
                 } else {
-                    if (tabla[sor + 1][oszlop + 1] == 0) {
-                        tabla[sor + 1][oszlop + 1] = FOX;
+                    if(tabla[sor+1][oszlop+1] == 0) {
+                        tabla[sor+1][oszlop+1] = FOX;
                         tabla[sor][oszlop] = 0;
-                        sor += 1;
-                        oszlop += 1;
-                        break;
+                        sor = sor+1;
+                        oszlop = oszlop+1;
+                    }else {
+                        System.out.println("Helytelen lépés - Foglalt mező");
+                        lep();
                     }
                 }
-            } else {
-                System.out.println("Helytelen parancs");
-                lepes = scanner.nextInt();
+            } break;
+
+            default: {
+                System.out.println("Ismeretlen parancs");
+                lep();
             }
+        }
+    }
+
+
+    public void ismeteltLepes() {
+        while(true) {
+            System.out.println("sor: "+sor);
+            System.out.println("oszlop: "+oszlop);
+            tablaFrissit();
+            lep();
+
         }
     }
 }
