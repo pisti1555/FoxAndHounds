@@ -7,11 +7,8 @@ public class Main {
         PlayerDatabase playerDataBase = new PlayerDatabase();
         Board board = new Board();
 
-        menu.start();
-        playerDataBase.playerTxt();
-        board.tablaLetrehoz();
-        board.ismeteltLepes();
-
+        menu.start(playerDataBase);
+        menu.menu(playerDataBase, board);
 
     }
 }

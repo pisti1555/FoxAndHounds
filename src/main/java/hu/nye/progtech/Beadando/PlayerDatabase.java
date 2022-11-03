@@ -8,14 +8,14 @@ public class PlayerDatabase {
     private int gyozelmekSzama = 0;
     private int veresegekSzama = 0;
     private int jatszottMeccsekSzama = 0;
-    private int lepesekSzama = 0;
+    private static int lepesekSzama = 0;
 
     private int osszGyozelmek;
     private int osszVereseg;
     private int osszJatszottMeccsek;
     private int osszLepesek;
 
-    public void playerTxt() {
+    protected void playerTxt() {
         Scanner scanner = new Scanner(System.in);
         BufferedWriter ir = null;
         try {
@@ -42,7 +42,7 @@ public class PlayerDatabase {
     }
     }
 
-    public void osszStat() {
+    protected void osszStat() {
         try {
             BufferedReader olvas = new BufferedReader(new FileReader("src\\main\\java\\hu\\nye\\progtech\\Beadando\\Players\\"+nev.toLowerCase()+".txt"));
             osszGyozelmek = Integer.parseInt(olvas.readLine());
@@ -59,9 +59,14 @@ public class PlayerDatabase {
         }
     }
 
-    public void statValtozas() {
+    protected void statValtozas() {
         try {
-            osszStat();
+            BufferedReader olvas = new BufferedReader(new FileReader("src\\main\\java\\hu\\nye\\progtech\\Beadando\\Players\\"+nev.toLowerCase()+".txt"));
+            osszGyozelmek = Integer.parseInt(olvas.readLine());
+            osszVereseg = Integer.parseInt(olvas.readLine());
+            osszJatszottMeccsek = Integer.parseInt((olvas.readLine()));
+            osszLepesek = Integer.parseInt(olvas.readLine());
+            olvas.close();
             BufferedWriter ir = new BufferedWriter(new FileWriter("src\\main\\java\\hu\\nye\\progtech\\Beadando\\Players\\"+nev.toLowerCase()+".txt"));
             ir.write(Integer.toString(osszGyozelmek+gyozelmekSzama));
             ir.newLine();
@@ -76,90 +81,34 @@ public class PlayerDatabase {
         }
     }
 
-    public void gyozelem() {
-        this.setGyozelmekSzama(gyozelmekSzama++);
-        this.setJatszottMeccsekSzama(jatszottMeccsekSzama++);
+    protected void gyozelem() {
+        gyozelmekSzama++;
+        jatszottMeccsekSzama++;
     }
 
-    public void vereseg() {
-        this.setVeresegekSzama(veresegekSzama++);
-        this.setJatszottMeccsekSzama(jatszottMeccsekSzama++);
+    protected void vereseg() {
+        veresegekSzama++;
+        jatszottMeccsekSzama++;
     }
 
 
-
-
-
-
-    public String getNev() {
-        return nev;
-    }
-
-    public void setNev(String nev) {
-        this.nev = nev;
-    }
-
-    public int getGyozelmekSzama() {
-        return gyozelmekSzama;
-    }
-
-    public void setGyozelmekSzama(int gyozelmekSzama) {
-        this.gyozelmekSzama = gyozelmekSzama;
-    }
-
-    public int getVeresegekSzama() {
-        return veresegekSzama;
-    }
-
-    public void setVeresegekSzama(int veresegekSzama) {
-        this.veresegekSzama = veresegekSzama;
-    }
-
-    public int getJatszottMeccsekSzama() {
-        return jatszottMeccsekSzama;
-    }
-
-    public void setJatszottMeccsekSzama(int jatszottMeccsekSzama) {
-        this.jatszottMeccsekSzama = jatszottMeccsekSzama;
+    protected void megtettLepes() {
+        lepesekSzama++;
     }
 
     public int getLepesekSzama() {
         return lepesekSzama;
     }
 
-    public void setLepesekSzama(int lepesekSzama) {
-        this.lepesekSzama = lepesekSzama;
+    protected void setGyozelmekSzama(int gyozelmekSzama) {
+        this.gyozelmekSzama = gyozelmekSzama;
     }
 
-    public int getOsszGyozelmek() {
-        return osszGyozelmek;
+    protected void setVeresegekSzama(int veresegekSzama) {
+        this.veresegekSzama = veresegekSzama;
     }
 
-    public void setOsszGyozelmek(int osszGyozelmek) {
-        this.osszGyozelmek = osszGyozelmek;
-    }
-
-    public int getOsszVereseg() {
-        return osszVereseg;
-    }
-
-    public void setOsszVereseg(int osszVereseg) {
-        this.osszVereseg = osszVereseg;
-    }
-
-    public int getOsszJatszottMeccsek() {
-        return osszJatszottMeccsek;
-    }
-
-    public void setOsszJatszottMeccsek(int osszJatszottMeccsek) {
-        this.osszJatszottMeccsek = osszJatszottMeccsek;
-    }
-
-    public int getOsszLepesek() {
-        return osszLepesek;
-    }
-
-    public void setOsszLepesek(int osszLepesek) {
-        this.osszLepesek = osszLepesek;
+    protected void setJatszottMeccsekSzama(int jatszottMeccsekSzama) {
+        this.jatszottMeccsekSzama = jatszottMeccsekSzama;
     }
 }

@@ -3,17 +3,17 @@ package hu.nye.progtech.Beadando;
 import java.util.Scanner;
 
 public class Board {
-    public int mezo;
-    private final int FOX = 1;
-    private final int DOG = 2;
+    private int NxN;
     private int[][] tabla;
-    private int sor;
-    private int oszlop;
-    Scanner scanner = new Scanner(System.in);
+    private boolean gyozott = false;
+    private boolean vesztett = false;
+    private Scanner scanner = new Scanner(System.in);
+    //private PlayerDatabase pd = new PlayerDatabase();
+    private Step step = new Step();
 
-    public void tablaLetrehoz() {
+
+    protected void tablaLetrehoz() {
         System.out.print("Milyen legyen a tábla mérete? (minimum 4x4 / maximum 12x12) :: ");
-        int NxN;
         while (true) {
             NxN = scanner.nextInt();
             if (NxN < 4) {
@@ -31,37 +31,16 @@ public class Board {
             }
         }
         tabla = new int[NxN][NxN];
-        mezo = tabla.length - 1;
-
-        for (int i = 0; i < tabla.length; i++) {
-            for (int j = 0; j < tabla.length; j++) {
-                tabla[i][j] = 0;
-            }
-        }
-
-        if ((NxN / 2) % 2 == 0) {
-            tabla[mezo][(mezo / 2) + 1] = FOX;
-            sor = mezo;
-            oszlop = (mezo / 2) + 1;
-            for (int i = 1; i < tabla.length; i += 2) {
-                tabla[0][i] = DOG;
-            }
-        } else {
-            tabla[mezo][mezo / 2] = FOX;
-            sor = mezo;
-            oszlop = mezo / 2;
-            for (int i = 1; i < tabla.length; i += 2) {
-                tabla[0][i] = DOG;
-            }
-        }
+        step.tablaLetrehoz(NxN);
     }
 
-    public void tablaFrissit() {
+    private void tablaMegjelenit() {
+
         for (int i = 0; i < tabla.length; i++) {
             for (int j = 0; j < tabla.length; j++) {
-                if (tabla[i][j] == FOX) {
+                if (tabla[i][j] == 1) {
                     System.out.print("F" + "  ");
-                } else if (tabla[i][j] == DOG) {
+                } else if (tabla[i][j] == 2) {
                     System.out.print("D" + "  ");
                 } else {
                     System.out.print("*" + "  ");
@@ -69,96 +48,44 @@ public class Board {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
-    public void lep() {
-        System.out.println("1 = Fel-Balra | 2 = Fel - Jobbra | 3 = Le-Balra | 4 = Le-Jobbra");
-        int lepes = scanner.nextInt();
+    private void tablaFrissit() {
+        tabla = step.tablaClone();
+    }
 
-        switch (lepes) {
-            case 1: {
-                if (sor - 1 > mezo || oszlop - 1 > mezo || sor - 1 < 0 || oszlop - 1 < 0) {
-                    System.out.println("Helytelen lépés");
-                    lep();
-                } else {
-                    if(tabla[sor-1][oszlop-1] == 0) {
-                        tabla[sor-1][oszlop-1] = FOX;
-                        tabla[sor][oszlop] = 0;
-                        sor = sor-1;
-                        oszlop = oszlop-1;
-                    }else {
-                        System.out.println("Helytelen lépés - Foglalt mező");
-                        lep();
-                    }
-                }
-            } break;
+    public void jatek(PlayerDatabase pd) {
+        while(true) {
+            tablaFrissit();
+            tablaMegjelenit();
+            step.lep();
+            pd.megtettLepes();
+            gyozelem(pd);
+            if(gyozott) break;
+            step.kutyaLep();
+            vereseg(pd);
+            if(vesztett) break;
+        }
+        pd.statValtozas();
+    }
 
-            case 2: {
-                if (sor - 1 > mezo || oszlop + 1 > mezo || sor - 1 < 0 || oszlop + 1 < 0) {
-                    System.out.println("Helytelen lépés");
-                    lep();
-                } else {
-                    if(tabla[sor-1][oszlop+1] == 0) {
-                        tabla[sor-1][oszlop+1] = FOX;
-                        tabla[sor][oszlop] = 0;
-                        sor = sor-1;
-                        oszlop = oszlop+1;
-                    }else {
-                        System.out.println("Helytelen lépés - Foglalt mező");
-                        lep();
-                    }
-                }
-            } break;
-
-            case 3: {
-                if (sor + 1 > mezo || oszlop - 1 > mezo || sor + 1 < 0 || oszlop - 1 < 0) {
-                    System.out.println("Helytelen lépés");
-                    lep();
-                } else {
-                    if(tabla[sor+1][oszlop-1] == 0) {
-                        tabla[sor+1][oszlop-1] = FOX;
-                        tabla[sor][oszlop] = 0;
-                        sor = sor+1;
-                        oszlop = oszlop-1;
-                    }else {
-                        System.out.println("Helytelen lépés - Foglalt mező");
-                        lep();
-                    }
-                }
-            } break;
-
-            case 4: {
-                if (sor + 1 > mezo || oszlop + 1 > mezo || sor - 1 < 0 || oszlop + 1 < 0) {
-                    System.out.println("Helytelen lépés");
-                    lep();
-                } else {
-                    if(tabla[sor+1][oszlop+1] == 0) {
-                        tabla[sor+1][oszlop+1] = FOX;
-                        tabla[sor][oszlop] = 0;
-                        sor = sor+1;
-                        oszlop = oszlop+1;
-                    }else {
-                        System.out.println("Helytelen lépés - Foglalt mező");
-                        lep();
-                    }
-                }
-            } break;
-
-            default: {
-                System.out.println("Ismeretlen parancs");
-                lep();
+    private void gyozelem(PlayerDatabase pd) {
+        if(step.gyozelem()) {
+                gyozott = true;
+                pd.gyozelem();
+                System.out.println();
+                System.out.println("Győzött a Róka!");
+                System.out.println("Ezen a meccsen megtett lépések száma: " + pd.getLepesekSzama());
             }
         }
-    }
 
-
-    public void ismeteltLepes() {
-        while(true) {
-            System.out.println("sor: "+sor);
-            System.out.println("oszlop: "+oszlop);
-            tablaFrissit();
-            lep();
-
+    private void vereseg(PlayerDatabase pd) {
+        if(!(step.balraFelLepE()&&step.balraLeLepE()&&step.jobbraFelLepE()&&step.jobbraLeLepE())) {
+            vesztett = true;
+            pd.vereseg();
+            System.out.println("Győztek a kutyák!");
+            System.out.println("Ezen a meccsen megtett lépések száma: " + pd.getLepesekSzama());
         }
     }
 }
