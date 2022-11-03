@@ -56,32 +56,34 @@ public class Board {
     }
 
     public void jatek(PlayerDatabase pd) {
-        while(true) {
+        gyozott = false;
+        vesztett = false;
+        while (true) {
             tablaFrissit();
             tablaMegjelenit();
             step.lep();
             pd.megtettLepes();
             gyozelem(pd);
-            if(gyozott) break;
+            if (gyozott) break;
             step.kutyaLep();
             vereseg(pd);
-            if(vesztett) break;
+            if (vesztett) break;
         }
         pd.statValtozas();
     }
 
     private void gyozelem(PlayerDatabase pd) {
-        if(step.gyozelem()) {
-                gyozott = true;
-                pd.gyozelem();
-                System.out.println();
-                System.out.println("Győzött a Róka!");
-                System.out.println("Ezen a meccsen megtett lépések száma: " + pd.getLepesekSzama());
-            }
+        if (step.gyozelem()) {
+            gyozott = true;
+            pd.gyozelem();
+            System.out.println();
+            System.out.println("Győzött a Róka!");
+            System.out.println("Ezen a meccsen megtett lépések száma: " + pd.getLepesekSzama());
         }
+    }
 
     private void vereseg(PlayerDatabase pd) {
-        if(!(step.balraFelLepE()&&step.balraLeLepE()&&step.jobbraFelLepE()&&step.jobbraLeLepE())) {
+        if (!step.balraFelLepE() && !step.balraLeLepE() && !step.jobbraFelLepE() && !step.jobbraLeLepE()) {
             vesztett = true;
             pd.vereseg();
             System.out.println("Győztek a kutyák!");

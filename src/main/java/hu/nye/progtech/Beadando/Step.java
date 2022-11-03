@@ -208,8 +208,8 @@ public class Step {
     protected boolean balraFelLepE() {
         int s = fox.sor;
         int o = fox.oszlop;
-        if(s-1> tabla.length) {
-            if(o-1> tabla.length) {
+        if(s-1>= 0) {
+            if(o-1>= 0) {
                 if(tabla[s-1][o-1]==0) {
                     return true;
                 }else return false;
@@ -220,8 +220,8 @@ public class Step {
     protected boolean balraLeLepE() {
         int s = fox.sor;
         int o = fox.oszlop;
-        if(s+1> tabla.length) {
-            if(o-1> tabla.length) {
+        if(s+1< tabla.length) {
+            if(o-1>= 0) {
                 if(tabla[s+1][o-1]==0) {
                     return true;
                 }else return false;
@@ -232,8 +232,8 @@ public class Step {
     protected boolean jobbraFelLepE() {
         int s = fox.sor;
         int o = fox.oszlop;
-        if(s-1> tabla.length) {
-            if(o+1> tabla.length) {
+        if(s-1>= 0) {
+            if(o+1< tabla.length) {
                 if(tabla[s-1][o+1]==0) {
                     return true;
                 }else return false;
@@ -244,8 +244,8 @@ public class Step {
     protected boolean jobbraLeLepE() {
         int s = fox.sor;
         int o = fox.oszlop;
-        if(s+1> tabla.length) {
-            if(o+1> tabla.length) {
+        if(s+1< tabla.length) {
+            if(o+1< tabla.length) {
                 if(tabla[s+1][o+1]==0) {
                     return true;
                 }else return false;

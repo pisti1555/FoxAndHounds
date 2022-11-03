@@ -28,30 +28,36 @@ public class Menu {
     }
 
     protected void menu(PlayerDatabase pd, Board b) {
+        while(true) {
+            int valasztas;
+            System.out.println();
+            System.out.println("        MENÜ");
+            System.out.println("1 = Játék indítása");
+            System.out.println("2 = Statisztikák megjelenítése");
+            System.out.println("3 = Profilváltás");
+            System.out.println("4 = Kilépés a játékból");
 
-        int valasztas;
-        System.out.println();
-        System.out.println("        MENÜ");
-        System.out.println("1 = Játék indítása");
-        System.out.println("2 = Statisztikák megjelenítése");
-        System.out.println("3 = Profilváltás");
-        System.out.println("4 = Kilépés a játékból");
-
-        valasztas = scanner.nextInt();
-        if(valasztas==1) {
-            b.tablaLetrehoz();
-            b.jatek(pd);
+            valasztas = scanner.nextInt();
+            switch(valasztas) {
+                case 1: {
+                    b.tablaLetrehoz();
+                    b.jatek(pd);
+                }break;
+                case 2: {
+                    pd.osszStat();
+                }break;
+                case 3: {
+                    System.out.println("Fejlesztés alatt");
+                }break;
+                case 4: {
+                    System.out.println("Viszlát legközelebb");
+                    System.exit(0);
+                }break;
+                default: {
+                    System.out.println("Ismeretlen parancs\n");
+                    menu(pd, b);
+                }
+            }
         }
-        if(valasztas==2) {
-            pd.osszStat();
-        }
-        if(valasztas==3) {
-            System.out.println("Fejlesztés alatt");
-        }
-        if(valasztas==4) {
-            System.out.println("Viszlát legközelebb");
-            System.exit(0);
-        }
-        menu(pd, b);
     }
 }

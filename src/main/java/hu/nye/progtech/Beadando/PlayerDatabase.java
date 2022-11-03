@@ -79,6 +79,10 @@ public class PlayerDatabase {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        lepesekSzama=0;
+        gyozelmekSzama=0;
+        veresegekSzama=0;
+        jatszottMeccsekSzama=0;
     }
 
     protected void gyozelem() {
