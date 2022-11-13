@@ -104,15 +104,5 @@ public class PlayerDatabase {
         return lepesekSzama;
     }
 
-    protected void setGyozelmekSzama(int gyozelmekSzama) {
-        this.gyozelmekSzama = gyozelmekSzama;
-    }
-
-    protected void setVeresegekSzama(int veresegekSzama) {
-        this.veresegekSzama = veresegekSzama;
-    }
-
-    protected void setJatszottMeccsekSzama(int jatszottMeccsekSzama) {
-        this.jatszottMeccsekSzama = jatszottMeccsekSzama;
-    }
+    public String getNev() {return nev;}
 }

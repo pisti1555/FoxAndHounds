@@ -84,11 +84,7 @@
                 <version>0.8.2</version>
                 <configuration>
                     <excludes>
-                        <exclude>hu/nye/progtech/Beadando/model/*</exclude>
                         <exclude>hu/nye/progtech/Beadando/Main.*</exclude>
-                        <exclude>hu/nye/progtech/Beadando/service/writer/*</exclude>
-                        <exclude>hu/nye/progtech/Beadando/service/exception/*</exclude>
-                        <exclude>hu/nye/progtech/Beadando/ui/PrintWrapper.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

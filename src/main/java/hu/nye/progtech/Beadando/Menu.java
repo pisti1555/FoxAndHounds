@@ -31,11 +31,12 @@ public class Menu {
         while(true) {
             int valasztas;
             System.out.println();
-            System.out.println("        MENÜ");
+            System.out.println("---------MENÜ---------");
             System.out.println("1 = Játék indítása");
             System.out.println("2 = Statisztikák megjelenítése");
             System.out.println("3 = Profilváltás");
             System.out.println("4 = Kilépés a játékból");
+            System.out.println("----------------------");
 
             valasztas = scanner.nextInt();
             switch(valasztas) {

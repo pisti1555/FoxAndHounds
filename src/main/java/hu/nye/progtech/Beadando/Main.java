@@ -9,6 +9,5 @@ public class Main {
 
         menu.start(playerDataBase);
         menu.menu(playerDataBase, board);
-
     }
 }

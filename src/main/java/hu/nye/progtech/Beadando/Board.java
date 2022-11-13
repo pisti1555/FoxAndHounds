@@ -8,7 +8,6 @@ public class Board {
     private boolean gyozott = false;
     private boolean vesztett = false;
     private Scanner scanner = new Scanner(System.in);
-    //private PlayerDatabase pd = new PlayerDatabase();
     private Step step = new Step();
 
 
@@ -58,14 +57,18 @@ public class Board {
     public void jatek(PlayerDatabase pd) {
         gyozott = false;
         vesztett = false;
+        tablaFrissit();
+        tablaMegjelenit();
         while (true) {
+            step.lep(step.getFox());
+            pd.megtettLepes();
             tablaFrissit();
             tablaMegjelenit();
-            step.lep();
-            pd.megtettLepes();
             gyozelem(pd);
             if (gyozott) break;
-            step.kutyaLep();
+            step.lep(step.getDog());
+            tablaFrissit();
+            tablaMegjelenit();
             vereseg(pd);
             if (vesztett) break;
         }
@@ -73,7 +76,7 @@ public class Board {
     }
 
     private void gyozelem(PlayerDatabase pd) {
-        if (step.gyozelem()) {
+        if (step.gyozelem(step.getFox())) {
             gyozott = true;
             pd.gyozelem();
             System.out.println();
@@ -83,7 +86,7 @@ public class Board {
     }
 
     private void vereseg(PlayerDatabase pd) {
-        if (!step.balraFelLepE() && !step.balraLeLepE() && !step.jobbraFelLepE() && !step.jobbraLeLepE()) {
+        if (!step.balraFelLepE(step.getFox(), step.tablaClone()) && !step.balraLeLepE(step.getFox(), step.tablaClone()) && !step.jobbraFelLepE(step.getFox(), step.tablaClone()) && !step.jobbraLeLepE(step.getFox(), step.tablaClone())) {
             vesztett = true;
             pd.vereseg();
             System.out.println("Győztek a kutyák!");
