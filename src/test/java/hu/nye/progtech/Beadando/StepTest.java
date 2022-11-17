@@ -1,15 +1,27 @@
 package hu.nye.progtech.Beadando;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StepTest {
 
+    @Mock
+    Step s;
+    Position x;
+
+
+    @BeforeEach
+    void beforeEach() {
+        s = new Step();
+        s.tablaLetrehoz(8);
+        x = null;
+    }
+
     @Test
     void tablaLetrehoz() {
-        Step s = new Step();
-        s.tablaLetrehoz(8);
         boolean elhelyezes = false;
         int[][] tabla = s.tablaClone();
         if(tabla[0][1]==2 && tabla[7][4]==1) {
@@ -20,7 +32,7 @@ class StepTest {
 
     @Test
     void lep() {
-        Position x = new Position(4,4,1);
+        x = new Position(4,4,1);
         int[][] tabla = new int[8][8];
         short helyes=0;
 
@@ -58,8 +70,9 @@ class StepTest {
 
         for (int i = 0; i < klon.length; i++) {
             for (int j = 0; j < klon.length; j++) {
-                if(klon[i][j] != tabla[i][j]) {
+                if (klon[i][j] != tabla[i][j]) {
                     egyezik = false;
+                    break;
                 }
             }
         }
@@ -68,21 +81,18 @@ class StepTest {
 
     @Test
     void gyozelemTrue() {
-        Step s = new Step();
-        Position x = new Position(0,1,1);
+        x = new Position(0,1,1);
         assertTrue(s.gyozelem(x));
     }
     @Test
     void gyozelemFalse() {
-        Step s = new Step();
-        Position x = new Position(2,0,1);
+        x = new Position(2,0,1);
         assertFalse(s.gyozelem(x));
     }
 
     @Test
     void balraFelLepENemMertSzelenVan() {
-        Step s = new Step();
-        Position x = new Position(7,0,1);
+        x = new Position(7,0,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -93,8 +103,7 @@ class StepTest {
     }
     @Test
     void balraFelLepENemMertFentVan() {
-        Step s = new Step();
-        Position x = new Position(0,4,1);
+        x = new Position(0,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -105,8 +114,7 @@ class StepTest {
     }
     @Test
     void balraFelLepEIgenMertSzelenVan() {
-        Step s = new Step();
-        Position x = new Position(7,7,1);
+        x = new Position(7,7,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -117,8 +125,7 @@ class StepTest {
     }
     @Test
     void balraFelLepEIgenMertLentVan() {
-        Step s = new Step();
-        Position x = new Position(7,4,1);
+        x = new Position(7,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -130,8 +137,7 @@ class StepTest {
 
     @Test
     void balraLeLepENemMertLentVan() {
-        Step s = new Step();
-        Position x = new Position(7,4,1);
+        x = new Position(7,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -142,8 +148,7 @@ class StepTest {
     }
     @Test
     void balraLeLepENemMertSzelenVan() {
-        Step s = new Step();
-        Position x = new Position(0,0,1);
+        x = new Position(0,0,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -154,8 +159,7 @@ class StepTest {
     }
     @Test
     void balraLeLepEIgenMertFentVan() {
-        Step s = new Step();
-        Position x = new Position(0,4,1);
+        x = new Position(0,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -166,8 +170,7 @@ class StepTest {
     }
     @Test
     void balraLeLepEIgenMertSzelenVan() {
-        Step s = new Step();
-        Position x = new Position(0,7,1);
+        x = new Position(0,7,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -179,8 +182,7 @@ class StepTest {
 
     @Test
     void jobbraFelLepENemMertFentVan() {
-        Step s = new Step();
-        Position x = new Position(0,4,1);
+        x = new Position(0,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -191,8 +193,7 @@ class StepTest {
     }
     @Test
     void jobbraFelLepENemMertSzelenVan() {
-        Step s = new Step();
-        Position x = new Position(4,7,1);
+        x = new Position(4,7,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -203,8 +204,7 @@ class StepTest {
     }
     @Test
     void jobbraFelLepEIgenMertLentVan() {
-        Step s = new Step();
-        Position x = new Position(7,4,1);
+        x = new Position(7,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -214,8 +214,7 @@ class StepTest {
         assertTrue(s.jobbraFelLepE(x, tabla));
     }@Test
     void jobbraFelLepEIgenMertSzelenVan() {
-        Step s = new Step();
-        Position x = new Position(4,0,1);
+        x = new Position(4,0,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -227,8 +226,7 @@ class StepTest {
 
     @Test
     void jobbraLeLepENemMertLentVan() {
-        Step s = new Step();
-        Position x = new Position(7,4,1);
+        x = new Position(7,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -239,8 +237,7 @@ class StepTest {
     }
     @Test
     void jobbraLeLepENemMertSzelenVan() {
-        Step s = new Step();
-        Position x = new Position(4,7,1);
+        x = new Position(4,7,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -251,8 +248,7 @@ class StepTest {
     }
     @Test
     void jobbraLeLepEIegnMertFentVan() {
-        Step s = new Step();
-        Position x = new Position(0,4,1);
+        x = new Position(0,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -263,8 +259,7 @@ class StepTest {
     }
     @Test
     void jobbraLeLepEIgenMertSzelenVan() {
-        Step s = new Step();
-        Position x = new Position(4,0,1);
+        x = new Position(4,0,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

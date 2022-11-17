@@ -1,5 +1,8 @@
 package hu.nye.progtech.Beadando;
 
+import org.springframework.stereotype.Repository;
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Board {
@@ -54,7 +57,7 @@ public class Board {
         tabla = step.tablaClone();
     }
 
-    public void jatek(PlayerDatabase pd) {
+    public void jatek(PlayerDatabase pd) throws SQLException {
         gyozott = false;
         vesztett = false;
         tablaFrissit();

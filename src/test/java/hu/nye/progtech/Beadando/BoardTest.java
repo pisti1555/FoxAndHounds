@@ -1,27 +1,29 @@
 package hu.nye.progtech.Beadando;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class BoardTest {
 
-    @Test
-    void tablaLetrehoz() {
-        StepTest s = new StepTest();
-        s.tablaLetrehoz();
+    Step s;
+
+    @BeforeEach
+    public void beforeEach() {
+        s = new Step();
     }
+
 
     @Test
     void tablaFrissit() {
-        StepTest s = new StepTest();
-        s.tablaClone();
+        StepTest st = new StepTest();
+        st.tablaClone();
     }
 
     @Test
     void vereseg() {
         boolean vereseg=false;
-        Step s = new Step();
         Position f = new Position(4,7,1);
         int[][] tabla = new int[8][8];
         tabla[4][7]=1;

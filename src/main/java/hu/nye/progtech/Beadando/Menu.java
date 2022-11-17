@@ -1,11 +1,23 @@
 package hu.nye.progtech.Beadando;
 
+import org.codehaus.plexus.component.annotations.Component;
+import org.springframework.stereotype.Service;
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
+    PlayerDatabase pd;
+    Board b;
+
+    public Menu(PlayerDatabase pd, Board b) {
+        this.pd = pd;
+        this.b = b;
+    }
+
     Scanner scanner = new Scanner(System.in);
 
-    protected void start(PlayerDatabase pd) {
+    public void start() throws SQLException {
         System.out.println("FOX AND HOUNDS\n");
         System.out.print("i = Indítás | n = Kilépés :: ");
         char start;
@@ -18,7 +30,12 @@ public class Menu {
             }
             else if(start == 'i' || start == 'I') {
                 System.out.println("Jó játékot!\n");
-                pd.playerTxt();
+                pd.logIn();
+                if(pd.findPlayer()) {
+                    pd.osszStat();
+                }else {
+                    pd.ujPlayer();
+                }
                 break;
             }
             else {
@@ -27,7 +44,7 @@ public class Menu {
         }
     }
 
-    protected void menu(PlayerDatabase pd, Board b) {
+    protected void menu() throws SQLException {
         while(true) {
             int valasztas;
             System.out.println();
@@ -56,7 +73,7 @@ public class Menu {
                 }break;
                 default: {
                     System.out.println("Ismeretlen parancs\n");
-                    menu(pd, b);
+                    menu();
                 }
             }
         }

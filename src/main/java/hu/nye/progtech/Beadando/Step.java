@@ -4,14 +4,21 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Step {
+
+    Board board;
     
     private int[][] tabla;
     private final int FOX = 1;
     private final int DOG = 2;
     private Position fox;
     private Position[] dog;
-    private Scanner scanner = new Scanner(System.in);
-    private Random random = new Random();
+    private final Scanner scanner = new Scanner(System.in);
+    private final Random random = new Random();
+
+    /*public int[][] tablaLetrehozz() {
+        //TODO
+    }
+     */
 
 
     protected void tablaLetrehoz(int N) {
@@ -101,51 +108,59 @@ public class Step {
             }
         }else {
             int lepes = random.nextInt(4);
-            switch(lepes) {
+            switch (lepes) {
                 case 0: {
                     if (balraFelLepE(x, tabla)) {
-                        tabla[x.sor-1][x.oszlop-1] = x.tipus;
+                        tabla[x.sor - 1][x.oszlop - 1] = x.tipus;
                         tabla[x.sor][x.oszlop] = 0;
-                        x.sor = x.sor-1;
-                        x.oszlop = x.oszlop-1;
-                    }else {
-                        int i = random.nextInt(dog.length-1);
+                        x.sor = x.sor - 1;
+                        x.oszlop = x.oszlop - 1;
+                    } else {
+                        int i = random.nextInt(dog.length - 1);
                         lep(dog[i]);
                     }
-                }break;
+                }
+                break;
                 case 1: {
                     if (jobbraFelLepE(x, tabla)) {
-                        tabla[x.sor-1][x.oszlop+1] = x.tipus;
+                        tabla[x.sor - 1][x.oszlop + 1] = x.tipus;
                         tabla[x.sor][x.oszlop] = 0;
-                        x.sor = x.sor-1;
-                        x.oszlop = x.oszlop+1;
+                        x.sor = x.sor - 1;
+                        x.oszlop = x.oszlop + 1;
                     } else {
-                        int i = random.nextInt(dog.length-1);
+                        int i = random.nextInt(dog.length - 1);
                         lep(dog[i]);
                     }
-                }break;
+                }
+                break;
                 case 2: {
                     if (balraLeLepE(x, tabla)) {
                         tabla[x.sor + 1][x.oszlop - 1] = x.tipus;
                         tabla[x.sor][x.oszlop] = 0;
                         x.sor = x.sor + 1;
                         x.oszlop = x.oszlop - 1;
-                    }else {
-                        int i = random.nextInt(dog.length-1);
+                    } else {
+                        int i = random.nextInt(dog.length - 1);
                         lep(dog[i]);
                     }
-                }break;
+                }
+                break;
                 case 3: {
                     if (jobbraLeLepE(x, tabla)) {
-                        tabla[x.sor+1][x.oszlop+1] = x.tipus;
+                        tabla[x.sor + 1][x.oszlop + 1] = x.tipus;
                         tabla[x.sor][x.oszlop] = 0;
-                        x.sor = x.sor+1;
-                        x.oszlop = x.oszlop+1;
+                        x.sor = x.sor + 1;
+                        x.oszlop = x.oszlop + 1;
                     } else {
-                        int i = random.nextInt(dog.length-1);
+                        int i = random.nextInt(dog.length - 1);
                         lep(dog[i]);
                     }
-                }break;
+                }
+                break;
+                default: {
+                    int i = random.nextInt(dog.length - 1);
+                    lep(dog[i]);
+                }
             }
         }
     }
