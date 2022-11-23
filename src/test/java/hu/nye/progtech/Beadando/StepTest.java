@@ -21,7 +21,7 @@ class StepTest {
     }
 
     @Test
-    void tablaLetrehoz() {
+    void tablaLetrehozTest() {
         boolean elhelyezes = false;
         int[][] tabla = s.tablaClone();
         if(tabla[0][1]==2 && tabla[7][4]==1) {
@@ -31,7 +31,7 @@ class StepTest {
     }
 
     @Test
-    void lep() {
+    void lepTest() {
         x = new Position(4,4,1);
         int[][] tabla = new int[8][8];
         short helyes=0;
@@ -58,7 +58,7 @@ class StepTest {
     }
 
     @Test
-    void tablaClone() {
+    void tablaCloneTest() {
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

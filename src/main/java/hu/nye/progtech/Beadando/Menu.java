@@ -1,8 +1,5 @@
 package hu.nye.progtech.Beadando;
 
-import org.codehaus.plexus.component.annotations.Component;
-import org.springframework.stereotype.Service;
-
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -44,14 +41,14 @@ public class Menu {
         }
     }
 
-    protected void menu() throws SQLException {
+    public void menu() throws SQLException {
         while(true) {
             int valasztas;
             System.out.println();
             System.out.println("---------MENÜ---------");
             System.out.println("1 = Játék indítása");
             System.out.println("2 = Statisztikák megjelenítése");
-            System.out.println("3 = Profilváltás");
+            System.out.println("3 = Scoreboard");
             System.out.println("4 = Kilépés a játékból");
             System.out.println("----------------------");
 
@@ -65,7 +62,7 @@ public class Menu {
                     pd.osszStat();
                 }break;
                 case 3: {
-                    System.out.println("Fejlesztés alatt");
+                    pd.scoreBoard();
                 }break;
                 case 4: {
                     System.out.println("Viszlát legközelebb");
@@ -77,5 +74,11 @@ public class Menu {
                 }
             }
         }
+    }
+
+    public void game() throws SQLException {
+        pd.createTableIfNotExists();
+        start();
+        menu();
     }
 }

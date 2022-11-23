@@ -1,31 +1,37 @@
 package hu.nye.progtech.Beadando;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
-import java.io.*;
+import java.sql.Connection;
 
 public class PlayerDatabaseTest {
+
+    @Mock
+    PlayerDatabase pd;
+
+    @Mock
+    Connection c;
+
+    @BeforeEach
+    void bfe() {
+        pd = new PlayerDatabase(c);
+    }
+
+
     @Test
-    void osszStat() {
-        int osszGyozelmek = 0;
-        int osszVereseg = 0;
-        int osszJatszottMeccsek = 0;
-        int osszLepesek = 0;
-        try {
-            BufferedReader olvas = new BufferedReader(new FileReader("src\\test\\java\\hu\\nye\\progtech\\Beadando\\test.txt"));
-            osszGyozelmek = Integer.parseInt(olvas.readLine());
-            osszVereseg = Integer.parseInt(olvas.readLine());
-            osszJatszottMeccsek = Integer.parseInt((olvas.readLine()));
-            osszLepesek = Integer.parseInt(olvas.readLine());
-            olvas.close();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        boolean okes = false;
-        if(osszGyozelmek==5&&osszVereseg==5&&osszLepesek==5&&osszJatszottMeccsek==5) {
-            okes = true;
-        }
-        assertTrue(okes);
+    void osszStatTest() {
+
+    }
+
+    @Test
+    void createTableIfNotExistsTest() {
+
+    }
+
+    @Test
+    void findPlayerTest() {
+
     }
 }

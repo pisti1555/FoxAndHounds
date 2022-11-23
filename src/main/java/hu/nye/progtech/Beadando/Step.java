@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class Step {
 
-    Board board;
-    
     private int[][] tabla;
     private final int FOX = 1;
     private final int DOG = 2;
@@ -15,13 +13,8 @@ public class Step {
     private final Scanner scanner = new Scanner(System.in);
     private final Random random = new Random();
 
-    /*public int[][] tablaLetrehozz() {
-        //TODO
-    }
-     */
 
-
-    protected void tablaLetrehoz(int N) {
+    public void tablaLetrehoz(int N) {
         tabla = new int[N][N];
         int mezo = tabla.length - 1;
         int kutyakSzama = N/2;
@@ -54,7 +47,7 @@ public class Step {
     }
 
     
-    protected void lep(Position x) {
+    public void lep(Position x) {
 
         if(x.tipus==1) {
             System.out.println("1 = Fel-Balra | 2 = Fel-Jobbra | 3 = Le-Balra | 4 = Le-Jobbra");
@@ -166,7 +159,7 @@ public class Step {
     }
 
 
-    protected int[][] tablaClone() {
+    public int[][] tablaClone() {
         return tabla.clone();
     }
 
@@ -178,7 +171,7 @@ public class Step {
         }
     }
 
-    protected boolean balraFelLepE(Position x, int[][] tabla) {
+    public boolean balraFelLepE(Position x, int[][] tabla) {
         int s = x.sor;
         int o = x.oszlop;
         if(s-1>= 0) {
@@ -190,7 +183,7 @@ public class Step {
         }else return false;
     }
 
-    protected boolean balraLeLepE(Position x, int[][] tabla) {
+    public boolean balraLeLepE(Position x, int[][] tabla) {
         int s = x.sor;
         int o = x.oszlop;
         if(s+1< tabla.length) {
@@ -202,7 +195,7 @@ public class Step {
         }else return false;
     }
 
-    protected boolean jobbraFelLepE(Position x, int[][] tabla) {
+    public boolean jobbraFelLepE(Position x, int[][] tabla) {
         int s = x.sor;
         int o = x.oszlop;
         if(s-1>= 0) {
@@ -214,7 +207,7 @@ public class Step {
         }else return false;
     }
 
-    protected boolean jobbraLeLepE(Position x, int[][] tabla) {
+    public boolean jobbraLeLepE(Position x, int[][] tabla) {
         int s = x.sor;
         int o = x.oszlop;
         if(s+1< tabla.length) {

@@ -7,22 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
 
-    Step s;
-
-    @BeforeEach
-    public void beforeEach() {
-        s = new Step();
-    }
-
-
     @Test
-    void tablaFrissit() {
-        StepTest st = new StepTest();
-        st.tablaClone();
-    }
-
-    @Test
-    void vereseg() {
+    void veresegTest() {
+        Step s = new Step();
         boolean vereseg=false;
         Position f = new Position(4,7,1);
         int[][] tabla = new int[8][8];
@@ -35,7 +22,4 @@ public class BoardTest {
         }
         assertTrue(vereseg);
     }
-
-
-
 }

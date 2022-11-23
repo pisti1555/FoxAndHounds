@@ -1,7 +1,5 @@
 package hu.nye.progtech.Beadando;
 
-import org.springframework.stereotype.Repository;
-
 import java.sql.SQLException;
 import java.util.Scanner;
 
