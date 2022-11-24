@@ -1,5 +1,7 @@
-package hu.nye.progtech.Beadando;
+package hu.nye.progtech.beadando;
 
+import hu.nye.progtech.beadando.game.Position;
+import hu.nye.progtech.beadando.game.Step;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -22,18 +24,16 @@ class StepTest {
 
     @Test
     void tablaLetrehozTest() {
-        boolean elhelyezes = false;
+        s.tablaLetrehoz(8);
         int[][] tabla = s.tablaClone();
-        if(tabla[0][1]==2 && tabla[7][4]==1) {
-            elhelyezes = true;
-        }
+        boolean elhelyezes = tabla[0][1] == 2 && tabla[7][4] == 1;
         assertTrue(elhelyezes);
     }
 
     @Test
     void lepTest() {
-        x = new Position(4,4,1);
-        int[][] tabla = new int[8][8];
+        x = new Position(4,4,2);
+        int[][] tabla = s.tablaClone();
         short helyes=0;
 
         for (int i = 0; i < 8; i++) {
@@ -41,16 +41,13 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        tabla[4][4] = 1;
-        tabla[x.sor+1][x.oszlop+1] = x.tipus;
-        tabla[x.sor][x.oszlop] = 0;
-        x.sor = x.sor+1;
-        x.oszlop = x.oszlop+1;
+        tabla[4][4] = 2;
+        s.lep(x);
 
-        if(x.sor==5&&x.oszlop==5) {
+        if(x.sor!=4&&x.oszlop!=4) {
             helyes++;
         }
-        if(tabla[4][4]==0 && tabla[5][5]==x.tipus) {
+        if(tabla[4][4]==0) {
             helyes++;
         }
 
@@ -58,10 +55,16 @@ class StepTest {
     }
 
     @Test
+    void getFoxTest() {
+        Position fox = s.getFox();
+        assertEquals(fox, s.getFox());
+    }
+
+    @Test
     void tablaCloneTest() {
-        int[][] tabla = new int[8][8];
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        int[][] tabla = s.tablaClone();
+        for (int i = 0; i < tabla.length; i++) {
+            for (int j = 0; j < tabla.length; j++) {
                 tabla[i][j] = 0;
             }
         }
@@ -80,18 +83,18 @@ class StepTest {
     }
 
     @Test
-    void gyozelemTrue() {
+    void gyozelemTest_True() {
         x = new Position(0,1,1);
         assertTrue(s.gyozelem(x));
     }
     @Test
-    void gyozelemFalse() {
+    void gyozelemTest_False() {
         x = new Position(2,0,1);
         assertFalse(s.gyozelem(x));
     }
 
     @Test
-    void balraFelLepENemMertSzelenVan() {
+    void bflTest_NemMertSzelenVan() {
         x = new Position(7,0,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -99,10 +102,10 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertFalse(s.balraFelLepE(x, tabla));
+        assertFalse(s.bfl(x, tabla));
     }
     @Test
-    void balraFelLepENemMertFentVan() {
+    void bflTest_NemLepMertFentVan() {
         x = new Position(0,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -110,10 +113,10 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertFalse(s.balraFelLepE(x, tabla));
+        assertFalse(s.bfl(x, tabla));
     }
     @Test
-    void balraFelLepEIgenMertSzelenVan() {
+    void bflTest_IgenMertSzelenVan() {
         x = new Position(7,7,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -121,10 +124,10 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertTrue(s.balraFelLepE(x, tabla));
+        assertTrue(s.bfl(x, tabla));
     }
     @Test
-    void balraFelLepEIgenMertLentVan() {
+    void bflTest_IgenMertLentVan() {
         x = new Position(7,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -132,11 +135,11 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertTrue(s.balraFelLepE(x, tabla));
+        assertTrue(s.bfl(x, tabla));
     }
 
     @Test
-    void balraLeLepENemMertLentVan() {
+    void bllTest_NemMertLentVan() {
         x = new Position(7,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -144,10 +147,10 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertFalse(s.balraLeLepE(x, tabla));
+        assertFalse(s.bll(x, tabla));
     }
     @Test
-    void balraLeLepENemMertSzelenVan() {
+    void bllTest_NemMertSzelenVan() {
         x = new Position(0,0,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -155,10 +158,10 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertFalse(s.balraLeLepE(x, tabla));
+        assertFalse(s.bll(x, tabla));
     }
     @Test
-    void balraLeLepEIgenMertFentVan() {
+    void bllTest_IgenMertFentVan() {
         x = new Position(0,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -166,10 +169,10 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertTrue(s.balraLeLepE(x, tabla));
+        assertTrue(s.bll(x, tabla));
     }
     @Test
-    void balraLeLepEIgenMertSzelenVan() {
+    void bllTest_IgenMertSzelenVan() {
         x = new Position(0,7,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -177,11 +180,11 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertTrue(s.balraLeLepE(x, tabla));
+        assertTrue(s.bll(x, tabla));
     }
 
     @Test
-    void jobbraFelLepENemMertFentVan() {
+    void jflTest_NemMertFentVan() {
         x = new Position(0,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -189,10 +192,10 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertFalse(s.jobbraFelLepE(x, tabla));
+        assertFalse(s.jfl(x, tabla));
     }
     @Test
-    void jobbraFelLepENemMertSzelenVan() {
+    void jflTest_NemMertSzelenVan() {
         x = new Position(4,7,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -200,10 +203,10 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertFalse(s.jobbraFelLepE(x, tabla));
+        assertFalse(s.jfl(x, tabla));
     }
     @Test
-    void jobbraFelLepEIgenMertLentVan() {
+    void jflTest_IgenMertLentVan() {
         x = new Position(7,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -211,9 +214,9 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertTrue(s.jobbraFelLepE(x, tabla));
+        assertTrue(s.jfl(x, tabla));
     }@Test
-    void jobbraFelLepEIgenMertSzelenVan() {
+    void jflTest_IgenMertSzelenVan() {
         x = new Position(4,0,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -221,11 +224,11 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertTrue(s.jobbraFelLepE(x, tabla));
+        assertTrue(s.jfl(x, tabla));
     }
 
     @Test
-    void jobbraLeLepENemMertLentVan() {
+    void jllTest_NemMertLentVan() {
         x = new Position(7,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -233,10 +236,10 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertFalse(s.jobbraLeLepE(x, tabla));
+        assertFalse(s.jll(x, tabla));
     }
     @Test
-    void jobbraLeLepENemMertSzelenVan() {
+    void jllTest_NemMertSzelenVan() {
         x = new Position(4,7,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -244,10 +247,10 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertFalse(s.jobbraLeLepE(x, tabla));
+        assertFalse(s.jll(x, tabla));
     }
     @Test
-    void jobbraLeLepEIegnMertFentVan() {
+    void jllTest_IegnMertFentVan() {
         x = new Position(0,4,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -255,10 +258,10 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertTrue(s.jobbraLeLepE(x, tabla));
+        assertTrue(s.jll(x, tabla));
     }
     @Test
-    void jobbraLeLepEIgenMertSzelenVan() {
+    void jllTest_IgenMertSzelenVan() {
         x = new Position(4,0,1);
         int[][] tabla = new int[8][8];
         for (int i = 0; i < 8; i++) {
@@ -266,6 +269,6 @@ class StepTest {
                 tabla[i][j] = 0;
             }
         }
-        assertTrue(s.jobbraLeLepE(x, tabla));
+        assertTrue(s.jll(x, tabla));
     }
 }

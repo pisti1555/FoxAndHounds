@@ -1,5 +1,8 @@
-package hu.nye.progtech.Beadando;
+package hu.nye.progtech.beadando.game;
 
+/**
+ * Lepesek nyomonkovetesehez kell.
+ */
 public class Position {
     public int sor;
     public int oszlop;

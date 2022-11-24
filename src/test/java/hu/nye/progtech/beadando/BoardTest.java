@@ -1,6 +1,7 @@
-package hu.nye.progtech.Beadando;
+package hu.nye.progtech.beadando;
 
-import org.junit.jupiter.api.BeforeEach;
+import hu.nye.progtech.beadando.game.Position;
+import hu.nye.progtech.beadando.game.Step;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +18,7 @@ public class BoardTest {
         tabla[5][6]=2;
         tabla[3][6]=2;
 
-        if (!s.balraFelLepE(f,tabla) && !s.balraLeLepE(f,tabla) && !s.jobbraFelLepE(f,tabla) && !s.jobbraLeLepE(f,tabla)) {
+        if (!s.bfl(f,tabla) && !s.bll(f,tabla) && !s.jfl(f,tabla) && !s.jll(f,tabla)) {
             vereseg=true;
         }
         assertTrue(vereseg);

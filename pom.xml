@@ -79,7 +79,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        hu.nye.progtech.Beadando.Main
+                                        hu.nye.progtech.beadando.Main
                                     </mainClass>
                                 </manifest>
                             </archive>
@@ -101,11 +101,10 @@
                 <version>0.8.2</version>
                 <configuration>
                     <excludes>
-                        <exclude>hu/nye/progtech/Beadando/Main.*</exclude>
-                        <exclude>hu/nye/progtech/Beadando/Step.*</exclude>
-                        <exclude>hu/nye/progtech/Beadando/PlayerDatabase.*</exclude>
-                        <exclude>hu/nye/progtech/Beadando/Menu.*</exclude>
-                        <exclude>hu/nye/progtech/Beadando/Board.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/Main.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/Menu.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/Board.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/Config.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -135,7 +134,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.8</minimum>
+                                            <minimum>0.0</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
