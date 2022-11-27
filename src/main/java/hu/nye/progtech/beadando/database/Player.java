@@ -15,11 +15,11 @@ public class Player {
     private String nev;
 
     private final Connection connection;
-    private final PlayerDatabase pd;
+    private final Stats stats;
 
-    public Player(Connection connection, PlayerDatabase pd) {
+    public Player(Connection connection, Stats stats) {
         this.connection = connection;
-        this.pd = pd;
+        this.stats = stats;
     }
 
     /**
@@ -28,7 +28,7 @@ public class Player {
     public void logIn(Scanner scanner) {
         System.out.print("Írd be a neved: ");
         nev = scanner.next().toUpperCase();
-        pd.setNev(nev);
+        stats.setNev(nev);
     }
 
     /**

@@ -1,15 +1,18 @@
 package hu.nye.progtech.beadando;
 
-import hu.nye.progtech.beadando.database.PlayerDatabase;
+import hu.nye.progtech.beadando.database.Stats;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Connection;
 
-public class PlayerDatabaseTest {
+@ExtendWith(MockitoExtension.class)
+public class StatsTest {
 
     @Mock
-    PlayerDatabase pd;
+    Stats pd;
 
     @Mock
     Connection c;

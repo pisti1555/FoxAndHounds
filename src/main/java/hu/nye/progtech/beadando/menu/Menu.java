@@ -1,24 +1,28 @@
 package hu.nye.progtech.beadando.menu;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 import hu.nye.progtech.beadando.database.Player;
-import hu.nye.progtech.beadando.database.PlayerDatabase;
+import hu.nye.progtech.beadando.database.Stats;
 import hu.nye.progtech.beadando.game.Board;
+import hu.nye.progtech.beadando.game_state_save.SaveAndLoad;
+import jakarta.xml.bind.JAXBException;
 
 /**
  * Menu, 2 fuggosege a jatekos-adatbazis es a tabla. Innen indulnak.
  */
 
 public class Menu {
-    private PlayerDatabase pd;
+    private Stats stat;
     private Board board;
     private Player player;
+    private boolean betoltes = false;
     private final Scanner scanner = new Scanner(System.in);
 
-    public Menu(PlayerDatabase pd, Player player, Board board) {
-        this.pd = pd;
+    public Menu(Stats stat, Player player, Board board) {
+        this.stat = stat;
         this.board = board;
         this.player = player;
     }
@@ -41,7 +45,7 @@ public class Menu {
                 System.out.println("Jó játékot!\n");
                 player.logIn(scanner);
                 if (player.findPlayer()) {
-                    pd.osszStat();
+                    stat.osszStat();
                 } else {
                     player.ujPlayer();
                 }
@@ -55,7 +59,7 @@ public class Menu {
     /**
      * Eldonthetjuk mit szeretnenk csinalni.
      */
-    public void menu() throws SQLException {
+    public void menu() throws SQLException, JAXBException {
         while (true) {
             System.out.println();
             System.out.println("---------MENÜ---------");
@@ -67,16 +71,25 @@ public class Menu {
             int valasztas = scanner.nextInt();
             switch (valasztas) {
                 case 1: {
-                    board.tablaLetrehoz();
-                    board.jatek(pd);
+                    mentettJatekBetoltes();
+                    if(!betoltes) {
+                        board.tablaLetrehoz();
+                    } else {
+                        //load
+                        SaveAndLoad saveAndLoad = new SaveAndLoad();
+                        saveAndLoad.load(stat.getNev(), board);
+                        board.betoltes();
+                        // TODO
+                    }
+                    board.jatek(stat);
                 }
                 break;
                 case 2: {
-                    pd.osszStat();
+                    stat.osszStat();
                 }
                 break;
                 case 3: {
-                    pd.scoreBoard();
+                    stat.scoreBoard();
                 }
                 break;
                 case 4: {
@@ -88,6 +101,29 @@ public class Menu {
                     System.out.println("Ismeretlen parancs\n");
                     menu();
                 }
+            }
+        }
+    }
+
+    public void mentettJatekBetoltes() {
+        File xml = new File("src//main//resources//"+stat.getNev()+".xml");
+        int valasz = 2;
+        if(xml.exists()) {
+            System.out.println("Előző alkalommal elmentetted a játékállást. Akarod betölteni?\n1 = Igen | 2 = Nem");
+            valasz = scanner.nextInt();
+            switch(valasz) {
+                case 1: {
+                    System.out.println("Betöltés");
+                    betoltes = true;
+                    // TODO
+                }break;
+                case 2: {
+                    betoltes = false;
+                    // TODO
+                }break;
+                default: {
+                    System.out.println("Ismeretlen parancs");
+                }break;
             }
         }
     }

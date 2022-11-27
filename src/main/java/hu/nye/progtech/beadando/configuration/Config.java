@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import hu.nye.progtech.beadando.database.Player;
-import hu.nye.progtech.beadando.database.PlayerDatabase;
+import hu.nye.progtech.beadando.database.Stats;
 import hu.nye.progtech.beadando.game.Board;
 import hu.nye.progtech.beadando.menu.Menu;
 import hu.nye.progtech.beadando.menu.Run;
@@ -25,22 +25,22 @@ public class Config {
 
     @Bean
     Menu menu() {
-        return new Menu(playerDatabase(), player(), board());
+        return new Menu(stat(), player(), board());
     }
 
     @Bean(initMethod = "runGame")
     Run run() {
-        return new Run(menu(), playerDatabase());
+        return new Run(menu(), stat());
     }
 
     @Bean
-    PlayerDatabase playerDatabase() {
-        return new PlayerDatabase(connection);
+    Stats stat() {
+        return new Stats(connection);
     }
 
     @Bean
     Player player() {
-        return new Player(connection, playerDatabase());
+        return new Player(connection, stat());
     }
 
     @Bean

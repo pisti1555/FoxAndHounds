@@ -1,7 +1,5 @@
 package hu.nye.progtech.beadando;
 
-import java.sql.SQLException;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -11,7 +9,7 @@ public class Main {
     /**
      * A main osztaly futtathato metodusa.
      */
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
         new AnnotationConfigApplicationContext("hu.nye.progtech.beadando.configuration");
     }

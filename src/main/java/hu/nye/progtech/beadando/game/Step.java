@@ -1,5 +1,9 @@
 package hu.nye.progtech.beadando.game;
 
+import hu.nye.progtech.beadando.menu.Menu;
+import jakarta.xml.bind.JAXBException;
+
+import java.sql.SQLException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,6 +15,8 @@ public class Step {
     private int[][] tabla;
     private static final int FOX = 1;
     private static final int DOG = 2;
+    private boolean exit = false;
+    private boolean mentes = false;
     private Position fox;
     private Position[] dog;
     private final Scanner scanner = new Scanner(System.in);
@@ -51,13 +57,32 @@ public class Step {
         }
     }
 
+    public void pozicioKereses(int[][] innenMasol) {
+        tabla = innenMasol;
+        dog = new Position[tabla.length/2];
+        int kutyaszamlalo = 0;
+        for (int i = 0; i < tabla.length; i++) {
+            for (int j = 0; j < tabla.length; j++) {
+                if(tabla[i][j] == DOG) {
+                    dog[kutyaszamlalo] = new Position(i, j, DOG);
+                    kutyaszamlalo++;
+                }
+                if(tabla[i][j] == FOX) {
+                    fox = new Position(i, j, FOX);
+                }
+            }
+        }
+    }
+
     /**
      * Lep a tablan akarmivel amit beadunk neki.
      */
     public void lep(Position x) {
+        exit = false;
+        mentes = false;
 
         if (x.tipus == 1) {
-            System.out.println("1 = Fel-Balra | 2 = Fel-Jobbra | 3 = Le-Balra | 4 = Le-Jobbra");
+            System.out.println("1 = Fel-Balra | 2 = Fel-Jobbra | 3 = Le-Balra | 4 = Le-Jobbra | 9 = Kilépés");
             int lepes = scanner.nextInt() - 1;
 
             switch (lepes) {
@@ -109,6 +134,9 @@ public class Step {
                     }
                 }
                 break;
+                case 8 : {
+                        kilepes();
+                }break;
                 default: {
                     System.out.println("Ismeretlen parancs");
                     lep(x);
@@ -275,6 +303,41 @@ public class Step {
         }
     }
 
+    public void kilepes() {
+        System.out.println("Biztosan ki akarsz lépni? 1 = Igen | 2 = Nem");
+        int valasz = scanner.nextInt();
+        switch(valasz) {
+            case 1: {
+                exit = true;
+                mentes();
+                break;
+            }
+            case 2: {
+            }break;
+            default: {
+                System.out.println("Ismeretlen parancs");
+                kilepes();
+            }
+        }
+    }
+
+    public void mentes() {
+        System.out.println("El kívánja menteni a jelenlegi játékállást? 1 = Igen | 2 = Nem");
+        int valasz = scanner.nextInt();
+        switch(valasz) {
+            case 1: {
+                mentes = true;
+                break;
+            }
+            case 2: {
+            }break;
+            default: {
+                System.out.println("Ismeretlen parancs");
+                mentes();
+            }
+        }
+    }
+
     /**
      * public metodus visszaadja a rokat.
      */
@@ -288,5 +351,13 @@ public class Step {
     public Position getDog() {
         int i = random.nextInt(dog.length - 1);
         return dog[i];
+    }
+
+    public boolean isExit() {
+        return exit;
+    }
+
+    public boolean isMentes() {
+        return mentes;
     }
 }

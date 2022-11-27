@@ -3,26 +3,28 @@ package hu.nye.progtech.beadando.game;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import hu.nye.progtech.beadando.database.PlayerDatabase;
-
+import hu.nye.progtech.beadando.database.Stats;
+import hu.nye.progtech.beadando.game_state_save.SaveAndLoad;
+import hu.nye.progtech.beadando.game_state_save.BoardToSave;
+import jakarta.xml.bind.JAXBException;
 
 
 /**
  * Tabla.
  */
 public class Board {
-    private int nxn;
     private int[][] tabla;
     private boolean gyozott = false;
     private boolean vesztett = false;
-    private Scanner scanner = new Scanner(System.in);
-    private Step step = new Step();
+    private final Scanner scanner = new Scanner(System.in);
+    private final Step step = new Step();
 
     /**
      * Letrehozzuk az eredeti tablat, es inditja a lepes tabla letrehozasat is.
      */
     public void tablaLetrehoz() {
         System.out.print("Milyen legyen a tábla mérete? (minimum 4x4 / maximum 12x12) :: ");
+        int nxn;
         while (true) {
             nxn = scanner.nextInt();
             if (nxn < 4) {
@@ -72,13 +74,17 @@ public class Board {
     /**
      * Ossze van szedve a jatek folyamata loopolva, amig nem nyerunk v vesztunk.
      */
-    public void jatek(PlayerDatabase pd) throws SQLException {
+    public void jatek(Stats pd) throws SQLException, JAXBException {
         gyozott = false;
         vesztett = false;
         tablaFrissit();
         tablaMegjelenit();
         while (true) {
             step.lep(step.getFox());
+            if(step.isExit()) {
+                mentes(pd);
+                break;
+            }
             pd.megtettLepes();
             tablaFrissit();
             tablaMegjelenit();
@@ -100,7 +106,7 @@ public class Board {
     /**
      * Megvizsgalja nyertuk-e mar, ha igen elvegzi a muveleteket.
      */
-    private void gyozelem(PlayerDatabase pd) {
+    private void gyozelem(Stats pd) {
         if (step.gyozelem(step.getFox())) {
             gyozott = true;
             pd.gyozelem();
@@ -113,7 +119,7 @@ public class Board {
     /**
      * Megvizsgalja vesztettunk-e mar, ha igen elvegzi a muveleteket.
      */
-    private void vereseg(PlayerDatabase pd) {
+    private void vereseg(Stats pd) {
         Position fox = step.getFox();
         int[][] tabla = step.tablaClone();
         if (!step.bfl(fox, tabla) && !step.bll(fox, tabla) && !step.jfl(fox, tabla) && !step.jll(fox, tabla)) {
@@ -122,5 +128,28 @@ public class Board {
             System.out.println("Győztek a kutyák!");
             System.out.println("Ezen a meccsen megtett lépések száma: " + pd.getLepesekSzama());
         }
+    }
+
+    private void mentes(Stats pd) throws JAXBException {
+        if(step.isMentes()) {
+            BoardToSave bts = new BoardToSave(getTabla());
+            SaveAndLoad save = new SaveAndLoad();
+            save.save(bts, pd.getNev());
+            System.out.println("Játékállásod elmentve");
+        } else {
+            System.out.println("A játékállás nem lett elmentve");
+        }
+    }
+
+    public int[][] getTabla() {
+        return tabla.clone();
+    }
+
+    public void setTabla(int[][] tabla) {
+        this.tabla = tabla;
+    }
+
+    public void betoltes() {
+        step.pozicioKereses(tabla);
     }
 }

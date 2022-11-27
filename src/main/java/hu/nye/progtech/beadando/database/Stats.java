@@ -9,7 +9,7 @@ import java.sql.Statement;
 /**
  * Jatekos adatbazis SQL szerveren.
  */
-public class PlayerDatabase {
+public class Stats {
     private String nev;
     private int id;
     private int gyozelmekSzama = 0;
@@ -24,7 +24,7 @@ public class PlayerDatabase {
 
     private final Connection connection;
 
-    public PlayerDatabase(Connection connection) {
+    public Stats(Connection connection) {
         this.connection = connection;
     }
 
@@ -147,5 +147,9 @@ public class PlayerDatabase {
 
     public void setNev(String nev) {
         this.nev = nev;
+    }
+
+    public String getNev() {
+        return nev;
     }
 }
