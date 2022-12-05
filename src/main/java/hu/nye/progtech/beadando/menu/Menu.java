@@ -7,7 +7,7 @@ import java.util.Scanner;
 import hu.nye.progtech.beadando.database.Player;
 import hu.nye.progtech.beadando.database.Stats;
 import hu.nye.progtech.beadando.game.Board;
-import hu.nye.progtech.beadando.game_state_save.SaveAndLoad;
+import hu.nye.progtech.beadando.gamestatesave.SaveAndLoad;
 import jakarta.xml.bind.JAXBException;
 
 /**
@@ -72,14 +72,12 @@ public class Menu {
             switch (valasztas) {
                 case 1: {
                     mentettJatekBetoltes();
-                    if(!betoltes) {
+                    if (!betoltes) {
                         board.tablaLetrehoz();
                     } else {
-                        //load
                         SaveAndLoad saveAndLoad = new SaveAndLoad();
                         saveAndLoad.load(stat.getNev(), board);
                         board.betoltes();
-                        // TODO
                     }
                     board.jatek(stat);
                 }
@@ -105,25 +103,31 @@ public class Menu {
         }
     }
 
+    /**
+     * Betoltes mentesbol.
+     */
     public void mentettJatekBetoltes() {
-        File xml = new File("src//main//resources//"+stat.getNev()+".xml");
+        File xml = new File("src//main//resources//" + stat.getNev() + ".xml");
         int valasz = 2;
-        if(xml.exists()) {
+        if (xml.exists()) {
             System.out.println("Előző alkalommal elmentetted a játékállást. Akarod betölteni?\n1 = Igen | 2 = Nem");
             valasz = scanner.nextInt();
-            switch(valasz) {
+            switch (valasz) {
                 case 1: {
                     System.out.println("Betöltés");
                     betoltes = true;
                     // TODO
-                }break;
+                }
+                break;
                 case 2: {
                     betoltes = false;
                     // TODO
-                }break;
+                }
+                break;
                 default: {
                     System.out.println("Ismeretlen parancs");
-                }break;
+                }
+                break;
             }
         }
     }

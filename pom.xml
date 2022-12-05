@@ -113,13 +113,20 @@
                 <configuration>
                     <excludes>
                         <exclude>hu/nye/progtech/beadando/Main.*</exclude>
-                        <exclude>hu/nye/progtech/beadando/Menu.*</exclude>
-                        <exclude>hu/nye/progtech/beadando/Board.*</exclude>
-                        <exclude>hu/nye/progtech/beadando/Config.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/menu/Menu.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/game/Board.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/configuration/Config.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/gamestatesave/SaveAndLoad.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/gamestatesave/BoardToSave.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/game/Position.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/database/Stats.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/database/Player.*</exclude>
+                        <exclude>hu/nye/progtech/beadando/menu/Run.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
@@ -145,7 +152,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.0</minimum>
+                                            <minimum>0.4</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

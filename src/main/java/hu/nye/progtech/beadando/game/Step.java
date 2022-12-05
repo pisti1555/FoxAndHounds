@@ -1,9 +1,5 @@
 package hu.nye.progtech.beadando.game;
 
-import hu.nye.progtech.beadando.menu.Menu;
-import jakarta.xml.bind.JAXBException;
-
-import java.sql.SQLException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -57,17 +53,20 @@ public class Step {
         }
     }
 
+    /**
+     * Megkeresi a pozikat.
+     */
     public void pozicioKereses(int[][] innenMasol) {
         tabla = innenMasol;
-        dog = new Position[tabla.length/2];
+        dog = new Position[tabla.length / 2];
         int kutyaszamlalo = 0;
         for (int i = 0; i < tabla.length; i++) {
             for (int j = 0; j < tabla.length; j++) {
-                if(tabla[i][j] == DOG) {
+                if (tabla[i][j] == DOG) {
                     dog[kutyaszamlalo] = new Position(i, j, DOG);
                     kutyaszamlalo++;
                 }
-                if(tabla[i][j] == FOX) {
+                if (tabla[i][j] == FOX) {
                     fox = new Position(i, j, FOX);
                 }
             }
@@ -134,9 +133,10 @@ public class Step {
                     }
                 }
                 break;
-                case 8 : {
-                        kilepes();
-                }break;
+                case 8: {
+                    kilepes();
+                }
+                break;
                 default: {
                     System.out.println("Ismeretlen parancs");
                     lep(x);
@@ -303,17 +303,21 @@ public class Step {
         }
     }
 
+    /**
+     * Exitet kerdez.
+     */
     public void kilepes() {
         System.out.println("Biztosan ki akarsz lépni? 1 = Igen | 2 = Nem");
         int valasz = scanner.nextInt();
-        switch(valasz) {
+        switch (valasz) {
             case 1: {
                 exit = true;
                 mentes();
                 break;
             }
             case 2: {
-            }break;
+            }
+            break;
             default: {
                 System.out.println("Ismeretlen parancs");
                 kilepes();
@@ -321,16 +325,20 @@ public class Step {
         }
     }
 
+    /**
+     * Mentest kerdez.
+     */
     public void mentes() {
         System.out.println("El kívánja menteni a jelenlegi játékállást? 1 = Igen | 2 = Nem");
         int valasz = scanner.nextInt();
-        switch(valasz) {
+        switch (valasz) {
             case 1: {
                 mentes = true;
                 break;
             }
             case 2: {
-            }break;
+            }
+            break;
             default: {
                 System.out.println("Ismeretlen parancs");
                 mentes();

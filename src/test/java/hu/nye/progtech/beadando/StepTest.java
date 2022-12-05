@@ -22,7 +22,7 @@ class StepTest {
     void beforeEach() {
         s = new Step();
         s.tablaLetrehoz(8);
-        x = null;
+        Position x;
     }
 
     @Test
@@ -31,6 +31,12 @@ class StepTest {
         int[][] tabla = s.tablaClone();
         boolean elhelyezes = tabla[0][1] == 2 && tabla[7][4] == 1;
         assertTrue(elhelyezes);
+    }
+
+    @Test
+    void pozicioKeresesTest() {
+        int[][] tabla = s.tablaClone();
+        s.pozicioKereses(tabla);
     }
 
     @Test
@@ -107,6 +113,7 @@ class StepTest {
         }
         assertFalse(s.bfl(x, tabla));
     }
+
     @Test
     void bflTest_NemLepMertFentVan() {
         x = new Position(0,4,1);

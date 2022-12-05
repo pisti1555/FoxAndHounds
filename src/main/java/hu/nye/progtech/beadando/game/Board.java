@@ -4,10 +4,9 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import hu.nye.progtech.beadando.database.Stats;
-import hu.nye.progtech.beadando.game_state_save.SaveAndLoad;
-import hu.nye.progtech.beadando.game_state_save.BoardToSave;
+import hu.nye.progtech.beadando.gamestatesave.BoardToSave;
+import hu.nye.progtech.beadando.gamestatesave.SaveAndLoad;
 import jakarta.xml.bind.JAXBException;
-
 
 /**
  * Tabla.
@@ -81,7 +80,7 @@ public class Board {
         tablaMegjelenit();
         while (true) {
             step.lep(step.getFox());
-            if(step.isExit()) {
+            if (step.isExit()) {
                 mentes(pd);
                 break;
             }
@@ -130,8 +129,11 @@ public class Board {
         }
     }
 
+    /**
+     * Mentes.
+     */
     private void mentes(Stats pd) throws JAXBException {
-        if(step.isMentes()) {
+        if (step.isMentes()) {
             BoardToSave bts = new BoardToSave(getTabla());
             SaveAndLoad save = new SaveAndLoad();
             save.save(bts, pd.getNev());
